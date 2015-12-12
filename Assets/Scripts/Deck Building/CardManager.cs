@@ -10,19 +10,17 @@ public class CardManager : MonoBehaviour
 	private List<Card> deck;
 	private List<Card> hand;
 	private List<Card> discard;
-
-	void Awake ()
-	{
-		deck = new List<Card>();
-		hand = new List<Card>();
-		discard = new List<Card>();
-	}
+	
 
 	public void InitDeck(Card [] cards)
 	{
+		hand = new List<Card>();
+		discard = new List<Card>();
+		deck = new List<Card>();
 		for (int i = 0; i < cards.Length; i++)
 		{
 			Card instance = Instantiate(cards[i]);
+			DontDestroyOnLoad(instance);
 			AddCardToTopOfDeck(instance);
 		}
 		Shuffle(deck);

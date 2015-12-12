@@ -63,4 +63,9 @@ public class MovingObject : MonoBehaviour {
 		transform.localScale = new Vector3(facing * spriteFacing, 1, 1);
 	}
 
+	public virtual void TakeDamage(int damage)
+	{
+
+	}
+
 }

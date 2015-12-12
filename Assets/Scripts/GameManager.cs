@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 	[HideInInspector]
 	public InputManager inputManager;
 	public int level;
+	public float restartLevelDelay = 0.5f;
 
 	[HideInInspector] public bool playerTurn = true;
 	private bool enemyTurn;
@@ -31,19 +32,26 @@ public class GameManager : MonoBehaviour
 		{
 			Destroy(gameObject);
 		}
-		boardManager = GetComponent<BoardManager>();
-		cardManager = GetComponent<CardManager>();
-		uiManager = GetComponent<UIManager>();
-		inputManager = GetComponent<InputManager>();
 		DontDestroyOnLoad(gameObject);
-		InitGame();
+		FindComponents();
 		InitDeck();
+		InitGame();
 	}
 
 
 	void OnLevelWasLoaded(int index)
 	{
+		level++;
+		FindComponents();
 		InitGame();
+	}
+
+	private void FindComponents()
+	{
+		uiManager = FindObjectOfType<UIManager>();
+		boardManager = GetComponent<BoardManager>();
+		cardManager = GetComponent<CardManager>();
+		inputManager = GetComponent<InputManager>();
 	}
 
 	private void InitGame()
@@ -51,12 +59,13 @@ public class GameManager : MonoBehaviour
 		boardManager.GenerateBoard(10);
 		boardManager.SpawnPlayer();
 		boardManager.SpawnEnemy(level);
+		cardManager.ShuffleHandAndDiscardIntoDeck();
+		cardManager.Draw();
 	}
 
 	private void InitDeck()
 	{
 		cardManager.InitDeck(startingDeck);
-		cardManager.Draw();
 	}
 
 	void Update()
@@ -86,6 +95,16 @@ public class GameManager : MonoBehaviour
 		}
 		enemyTurn = false;
 		playerTurn = true;
+	}
+
+	public void NextLevel()
+	{
+		Invoke("Restart", restartLevelDelay);
+	}
+
+	private void Restart()
+	{
+		Application.LoadLevel(Application.loadedLevel);
 	}
 
 }

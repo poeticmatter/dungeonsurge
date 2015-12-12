@@ -6,6 +6,7 @@ public class Enemy : MovingObject {
 	public int startPosition = 8;
 	public EnemyAction[] actions;
 	public int[] actionWeights;
+	private int hp;
 
 	override protected void Awake()
 	{
@@ -20,10 +21,10 @@ public class Enemy : MovingObject {
 	public virtual void ChooseAction()
 	{
 		int weightTotal = CalculateWeightTotal();
-		int randomAction = Random.Range(0, weightTotal);
+		int randomActionWeight = Random.Range(0, weightTotal);
 		int weightCounted = 0;
 		int actionIndex = 0;
-		while (weightTotal > weightCounted + actionWeights[actionIndex])
+		while (randomActionWeight > weightCounted + actionWeights[actionIndex])
 		{
 			weightCounted += actionWeights[actionIndex++];
 		}
@@ -44,5 +45,15 @@ public class Enemy : MovingObject {
 	{
 		target = FindObjectOfType<Player>();
 		base.Start();
+	}
+
+	public override void TakeDamage(int damage)
+	{
+		base.TakeDamage(damage);
+		hp -= damage;
+		if (hp<=0)
+		{
+			GameManager.instance.NextLevel();
+		}
 	}
 }

@@ -6,27 +6,25 @@ public class BoardManager : MonoBehaviour {
 
 	public GameObject [] boardSprites;
 
-	private MovingObject[] onTheBoard;
+	private MovingObject[] board;
 	public List<Enemy> enemies;
 
 	public Player playerPrefab;
 	public Enemy enemyPrefab;
 	
 
-	void Awake () {
-		enemies = new List<Enemy>();
-	}
-	
-	void Update () {
-	
+	public int Length()
+	{
+		return board.Length;
 	}
 
 	public void GenerateBoard(int length)
 	{
-		onTheBoard = new MovingObject[length];
+		enemies = new List<Enemy>();
+        board = new MovingObject[length];
 		for (int i = 0; i < length; i++)
 		{
-			onTheBoard[i] = null;
+			board[i] = null;
 			AddSpriteAtPosition(new Vector3(i, 0, 0));
 		}
 	}
@@ -34,7 +32,7 @@ public class BoardManager : MonoBehaviour {
 	public void RegisterOnBoard(MovingObject o, int index)
 	{
 		o.transform.position = new Vector3(index, 0, 0);
-		onTheBoard[index] = o;
+		board[index] = o;
 		o.boardPosition = index;
 	}
 
@@ -45,11 +43,11 @@ public class BoardManager : MonoBehaviour {
 		for (int i = 0; Mathf.Abs(i) <= Mathf.Abs(distance); i += distance>0 ? +1 : -1)
 		{
 			int newPos = i + initialPosition;
-			if (newPos < 0 || newPos >= onTheBoard.Length)
+			if (newPos < 0 || newPos >= board.Length)
 			{
 				break;
 			}
-			if (onTheBoard[newPos] == null)
+			if (board[newPos] == null)
 			{
 				lastLegalMove = i;
 			}
@@ -57,8 +55,8 @@ public class BoardManager : MonoBehaviour {
 		int newPosition = initialPosition + lastLegalMove;
         if (lastLegalMove !=0)
 		{
-			onTheBoard[initialPosition] = null;
-			onTheBoard[newPosition] = o;
+			board[initialPosition] = null;
+			board[newPosition] = o;
 			o.boardPosition = newPosition;
 			StartCoroutine(o.SmoothMovement(new Vector3(newPosition, 0, 0), Mathf.Abs(lastLegalMove)));
 		}

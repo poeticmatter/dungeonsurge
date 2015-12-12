@@ -38,8 +38,17 @@ public class Player : MovingObject {
 		{
 			yield return null;
 		}
+		CheckReachedEnd();
 		GameManager.instance.cardManager.Draw();
         GameManager.instance.playerTurn = false;
 		cardPlaying = false;
+	}
+
+	private void CheckReachedEnd()
+	{
+		if (boardPosition >= GameManager.instance.boardManager.Length()-1)
+		{
+			GameManager.instance.NextLevel();
+		}
 	}
 }
