@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
 	public Text message;
+	public Text inputMessage;
 	public Text[] titles;
 	public Text[] xp;
 	public Text[] descriptions;
@@ -38,14 +39,22 @@ public class UIManager : MonoBehaviour
 
 	public void DisplayMessage(string text)
 	{
+		Debug.Log(message.enabled);
 		message.enabled = true;
 		message.text = text;
 		
 	}
 
-	public void ClearMessage()
+	public void DisplayInput(string text)
 	{
-		message.enabled = false;
+		inputMessage.enabled = true;
+		inputMessage.text = text;
+
+	}
+
+	public void ClearInput()
+	{
+		inputMessage.enabled = false;
 	}
 
 }

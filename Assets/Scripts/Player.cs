@@ -22,7 +22,7 @@ public class Player : MovingObject {
 
 	IEnumerator WaitForInput()
 	{
-		GameManager.instance.uiManager.DisplayMessage("Pick a card to play");
+		GameManager.instance.uiManager.DisplayInput("Pick a card to play");
 
 		while (!GameManager.instance.inputManager.HasInput())
 		{

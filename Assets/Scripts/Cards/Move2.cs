@@ -3,9 +3,9 @@ using System.Collections;
 
 public class Move2 : Card {
 
-	protected override void ExecuteStage(int stage)
+	protected override void ExecuteStage(Player player, int stage)
 	{
-		base.ExecuteStage(stage);
-		FindObjectOfType<Player>().CheckMove(2 * inputs[0]);
+		base.ExecuteStage(player, stage);
+		player.CheckMove(2 * inputs[0]);
 	}
 }

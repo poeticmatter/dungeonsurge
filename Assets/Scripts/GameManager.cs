@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
 	IEnumerator EnemyTurn()
 	{
 		enemyTurn = true;
-		uiManager.DisplayMessage("Enemy Turn");
+		uiManager.DisplayInput("Enemy Turn");
 		for (int i = 0; i < boardManager.enemies.Count; i++)
 		{
 			currentEnemy = boardManager.enemies[i];

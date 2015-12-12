@@ -12,10 +12,6 @@ public class Card : MonoBehaviour {
 
 	public int[] inputs;
 	public string[] inputMessages;
-
-	void Awake () {
-
-	}
 	
 
 	public void Play()
@@ -31,26 +27,26 @@ public class Card : MonoBehaviour {
 
 		for (int i = 0; i < inputs.Length; i++)
 		{
-			GameManager.instance.uiManager.DisplayMessage(inputMessages[i]);
+			GameManager.instance.uiManager.DisplayInput(inputMessages[i]);
 			yield return new WaitForSeconds(0.1f); //Display message for a bit before getting input
 			while (!GameManager.instance.inputManager.HasInput())
 			{
 				yield return null;
 			}
 			inputs[i] = GameManager.instance.inputManager.InputValue;
-			GameManager.instance.uiManager.ClearMessage();
+			GameManager.instance.uiManager.ClearInput();
 		}
-
-		for (int i = 0; i < stages; i++)
+		Player player = FindObjectOfType<Player>();
+        for (int i = 0; i < stages; i++)
 		{
-			ExecuteStage(i);
+			ExecuteStage(player, i);
 			yield return new WaitForSeconds(0.1f);
 		}
 
 		playing = false;
 	}
 
-	protected virtual void ExecuteStage(int stage)
+	protected virtual void ExecuteStage(Player player, int stage)
 	{
 		
 	}

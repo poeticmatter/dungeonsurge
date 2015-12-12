@@ -10,7 +10,7 @@ public class MovingObject : MonoBehaviour {
 	[HideInInspector]
 	public int facing;
 	public int spriteFacing = -1;
-	protected MovingObject target = null;
+	public MovingObject target = null;
 	BoardManager boardManager;
 	public float moveTime = 0.1f;
 
