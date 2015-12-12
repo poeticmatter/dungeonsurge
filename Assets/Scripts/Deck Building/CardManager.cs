@@ -2,34 +2,38 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class CardManager
+public class CardManager : MonoBehaviour
 {
 
-	public int handSize { get; private set; }
+	public int handSize = 2;
 
 	private List<Card> deck;
 	private List<Card> hand;
 	private List<Card> discard;
 
-	public CardManager(int handSize)
+	void Awake ()
 	{
-		this.handSize = handSize;
 		deck = new List<Card>();
 		hand = new List<Card>();
 		discard = new List<Card>();
 	}
 
-	public void InitDeck(List<Card> cards)
+	public void InitDeck(Card [] cards)
 	{
-		deck.AddRange(cards);
+		for (int i = 0; i < cards.Length; i++)
+		{
+			Card instance = Instantiate(cards[i]);
+			AddCardToTopOfDeck(instance);
+		}
 	}
 
-	public void Play(int cardIndex)
+	public Card Play(int cardIndex)
 	{
 		Card temp = hand[cardIndex];
 		discard.AddRange(hand);
 		hand.Clear();
 		temp.Play();
+		return temp;
 	}
 
 	public void AddCardToTopOfDeck(Card card)
@@ -55,6 +59,7 @@ public class CardManager
 				break;
 			}
 		}
+		GameManager.instance.uiManager.updateHand();
 	}
 
 	public void ShuffleHandAndDiscardIntoDeck()
@@ -69,6 +74,11 @@ public class CardManager
 		deck.AddRange(discard);
 		discard.Clear();
 		Shuffle(deck);
+	}
+
+	public Card[] GetHandCards()
+	{
+		return hand.ToArray();
 	}
 
 	private void Shuffle(List<Card> list)
