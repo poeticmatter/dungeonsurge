@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
 	public Text[] titles;
 	public Text[] xp;
 	public Text[] descriptions;
+	public Image[] arrows;
 
 	private CardManager cardManager = null;
 
@@ -34,6 +35,14 @@ public class UIManager : MonoBehaviour
 				descriptions[i].text = handCards[i].description;
 			}
 
+		}
+	}
+
+	public void SelectedCard(int card)
+	{
+		for (int i = 0; i < arrows.Length; i++)
+		{
+			arrows[i].enabled = i == card;
 		}
 	}
 

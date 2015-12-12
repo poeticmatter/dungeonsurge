@@ -32,6 +32,7 @@ public class CardManager : MonoBehaviour
 		discard.AddRange(hand);
 		hand.Clear();
 		temp.Play();
+		GameManager.instance.uiManager.SelectedCard(cardIndex);
 		return temp;
 	}
 
@@ -59,6 +60,7 @@ public class CardManager : MonoBehaviour
 			}
 		}
 		GameManager.instance.uiManager.updateHand();
+		GameManager.instance.uiManager.SelectedCard(-1);
 	}
 
 	public void ShuffleHandAndDiscardIntoDeck()
