@@ -5,18 +5,27 @@ public class MovingObject : MonoBehaviour {
 
 	[HideInInspector]
 	public bool moving;
-	//[HideInInspector]
+	[HideInInspector]
 	public int boardPosition;
+	[HideInInspector]
+	public int facing;
+	public int spriteFacing = -1;
+	protected MovingObject target = null;
 	BoardManager boardManager;
 	public float moveTime = 0.1f;
 
 	private float inverseMoveTime;
 	private Rigidbody2D rb2D;
 
-	void Awake()
+	protected virtual void Awake()
 	{
 		rb2D = GetComponent<Rigidbody2D>();
 		inverseMoveTime = 1f / moveTime;
+	}
+
+	protected virtual void Start()
+	{
+		CheckFacting();
 	}
 	
 	public void CheckMove(int distance)
@@ -45,7 +54,13 @@ public class MovingObject : MonoBehaviour {
 			yield return null;
 		}
 		moving = false;
+		CheckFacting();
 	}
 
+	private void CheckFacting()
+	{
+		facing = boardPosition > target.boardPosition ? -1 : 1;
+		transform.localScale = new Vector3(facing * spriteFacing, 1, 1);
+	}
 
 }

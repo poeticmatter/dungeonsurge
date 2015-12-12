@@ -7,6 +7,19 @@ public class Enemy : MovingObject {
 
 	public virtual void ChooseAction()
 	{
-		CheckMove(-1);
+		if (Mathf.Abs(target.boardPosition - boardPosition) == 1)
+		{
+			CheckMove(-facing);
+		}
+		else
+		{
+			CheckMove(facing);
+		}
+	}
+
+	protected override void Start()
+	{
+		target = FindObjectOfType<Player>();
+		base.Start();
 	}
 }

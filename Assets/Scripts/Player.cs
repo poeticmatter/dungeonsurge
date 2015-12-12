@@ -14,6 +14,11 @@ public class Player : MovingObject {
 		StartCoroutine(WaitForInput());
 
 	}
+	protected override void Start()
+	{
+		target = FindObjectOfType<Enemy>();
+		base.Start();
+	}
 
 	IEnumerator WaitForInput()
 	{
