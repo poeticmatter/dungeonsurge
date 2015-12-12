@@ -13,10 +13,8 @@ public class Card : MonoBehaviour {
 	public int[] inputs;
 	public string[] inputMessages;
 
-	private static int id = 1;
-
 	void Awake () {
-		title = "Title" + id++;
+
 	}
 	
 
@@ -54,7 +52,7 @@ public class Card : MonoBehaviour {
 
 	protected virtual void ExecuteStage(int stage)
 	{
-		FindObjectOfType<Player>().CheckMove(2*inputs[0]);
+		
 	}
 
 	
