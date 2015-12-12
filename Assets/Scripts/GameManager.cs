@@ -49,11 +49,7 @@ public class GameManager : MonoBehaviour
 		level++;
 		FindComponents();
 		InitGame();
-		Player player = FindObjectOfType<Player>();
-		player.playerXP = playerXP;
-		player.playerHP = playerHP;
-		player.shield = playerShield;
-		player.playerLevel = playerLevel;
+		LoadPlayerStats();
 	}
 
 	private void FindComponents()
@@ -109,12 +105,34 @@ public class GameManager : MonoBehaviour
 
 	public void NextLevel()
 	{
+		SavePlayerStats();
 		Invoke("Restart", restartLevelDelay);
+	}
+
+	private void SavePlayerStats()
+	{
+		if (level == 0)
+		{
+			return;
+		}
 		Player player = FindObjectOfType<Player>();
 		playerXP = player.playerXP;
 		playerHP = player.playerHP;
 		playerShield = player.shield + 1;
 		playerLevel = player.playerLevel;
+	}
+
+	private void LoadPlayerStats()
+	{
+		if (level <=1)
+		{
+			return;
+		}
+		Player player = FindObjectOfType<Player>();
+		player.playerXP = playerXP;
+		player.playerHP = playerHP;
+		player.shield = playerShield;
+		player.playerLevel = playerLevel;
 	}
 
 	public void GameOver()

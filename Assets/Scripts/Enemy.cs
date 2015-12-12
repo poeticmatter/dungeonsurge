@@ -6,7 +6,7 @@ public class Enemy : MovingObject {
 	public int startPosition = 8;
 	public EnemyAction[] actions;
 	public int[] actionWeights;
-	private int hp;
+	public int hp;
 
 	override protected void Awake()
 	{
@@ -16,6 +16,7 @@ public class Enemy : MovingObject {
 		{
 			actionWeights[i] = 1;
 		}
+
 	}
 
 	public virtual void ChooseAction()

@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+	public Text[] floatingText;
+	private int floatingTextIndex = 0;
 	public Text playerHP;
 	public Text playerXP;
 	public Text enemyName;
@@ -28,7 +30,7 @@ public class UIManager : MonoBehaviour
 		for (int i = 0; i < titles.Length; i++)
 		{
 			bool cardExists = i < handCards.Length;
-            titles[i].enabled = cardExists;
+			titles[i].enabled = cardExists;
 			xp[i].enabled = cardExists;
 			descriptions[i].enabled = cardExists;
 
@@ -53,7 +55,6 @@ public class UIManager : MonoBehaviour
 
 	public void DisplayMessage(string text)
 	{
-		Debug.Log(message.enabled);
 		message.enabled = true;
 		SetText(message, text);
 
@@ -86,5 +87,20 @@ public class UIManager : MonoBehaviour
 	{
 		textUI.text = newText.Replace("\\n", "\n");
 	}
+
+	public void SetEnemyName(string name)
+	{
+		SetText(enemyName, name);
+	}
+
+	public void FloatText(string text, Vector3 worldPosition)
+	{
+		Vector2 screenPosition = Camera.current.WorldToScreenPoint( worldPosition);
+		floatingText[floatingTextIndex].GetComponent<RectTransform>().position = screenPosition;
+		floatingText[floatingTextIndex].text = text;
+		floatingText[floatingTextIndex].GetComponent<FloatingText>().enabled = true;
+		floatingTextIndex = (floatingTextIndex+1)%floatingText.Length;
+		
+    }
 
 }

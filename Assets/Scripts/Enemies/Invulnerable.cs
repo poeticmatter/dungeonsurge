@@ -32,6 +32,7 @@ public class Invulnerable : Enemy {
 
 	public override void TakeDamage(int damage)
 	{
+		base.TakeDamage(0);
 		GameManager.instance.uiManager.DisplayMessage(invulnerableMessage);
 	}
 }
