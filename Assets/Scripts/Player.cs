@@ -5,8 +5,10 @@ public class Player : MovingObject
 {
 	public int startPosition = 1;
 	private bool cardPlaying = false;
-	public int hp = 3;
+	public int playerHP = 3;
 	public int shield = 1;
+	public int playerXP;
+	public int playerLevel;
 	public string[] damageMessages;
 	public string shieldBlockedMessage;
 	public string shieldHelpedMessage;
@@ -28,7 +30,7 @@ public class Player : MovingObject
 	{
 		target = FindObjectOfType<Enemy>();
 		base.Start();
-		GameManager.instance.uiManager.SetHP(hp, shield);
+		GameManager.instance.uiManager.SetHP(playerHP, shield);
 	}
 
 	IEnumerator WaitForInput()
@@ -54,6 +56,13 @@ public class Player : MovingObject
 		cardPlaying = false;
 	}
 
+	private void GainXP(int xpGain)
+	{
+		playerXP += xpGain;
+	}
+
+
+
 	public override void TakeDamage(int damage)
 	{
 		string message = "";
@@ -77,19 +86,19 @@ public class Player : MovingObject
 				}
 				int temp = shield;
 				shield -= damage;
-				damage -= shield;
+				damage -= temp;
 			}
 			if (damage > 0)
 			{
-				hp -= damage;
-				if (hp <= 0)
+				playerHP -= damage;
+				if (playerHP <= 0)
 				{
 					GameManager.instance.GameOver();
 				}
 			}
 		}
 		GameManager.instance.uiManager.DisplayMessage(message);
-		GameManager.instance.uiManager.SetHP(hp, shield);
+		GameManager.instance.uiManager.SetHP(playerHP, shield);
 	}
 
 

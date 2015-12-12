@@ -22,6 +22,11 @@ public class GameManager : MonoBehaviour
 	public static GameManager instance = null;
 	public Card[] startingDeck;
 
+	private int playerXP;
+	private int playerHP;
+	private int playerShield;
+	private int playerLevel;
+
 	void Awake()
 	{
 		if (instance == null)
@@ -44,6 +49,11 @@ public class GameManager : MonoBehaviour
 		level++;
 		FindComponents();
 		InitGame();
+		Player player = FindObjectOfType<Player>();
+		player.playerXP = playerXP;
+		player.playerHP = playerHP;
+		player.shield = playerShield;
+		player.playerLevel = playerLevel;
 	}
 
 	private void FindComponents()
@@ -100,6 +110,11 @@ public class GameManager : MonoBehaviour
 	public void NextLevel()
 	{
 		Invoke("Restart", restartLevelDelay);
+		Player player = FindObjectOfType<Player>();
+		playerXP = player.playerXP;
+		playerHP = player.playerHP;
+		playerShield = player.shield + 1;
+		playerLevel = player.playerLevel;
 	}
 
 	public void GameOver()
