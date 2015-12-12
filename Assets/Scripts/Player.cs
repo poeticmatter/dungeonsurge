@@ -1,12 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour {
-
+public class Player : MovingObject {
+	public int startPosition = 1;
 	private bool cardPlaying = false;
-	void Start () {
-	
-	}
 	
 	void Update () {
 		if (!GameManager.instance.playerTurn || cardPlaying)
@@ -20,11 +17,17 @@ public class Player : MonoBehaviour {
 
 	IEnumerator WaitForInput()
 	{
-		while(!GameManager.instance.inputManager.HasInput())
+		GameManager.instance.uiManager.DisplayMessage("Pick a card to play");
+
+		while (!GameManager.instance.inputManager.HasInput())
 		{
 			yield return null;
 		}
 		int input = GameManager.instance.inputManager.InputValue;
+		if (input == -1)
+		{
+			input = 0;
+		}
 		Card played = GameManager.instance.cardManager.Play(input);
 		while(played.playing)
 		{

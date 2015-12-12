@@ -3,19 +3,19 @@ using System.Collections;
 
 public class InputManager : MonoBehaviour {
 	
-	private int _inputValue = -1;
+	private int _inputValue = 0;
 
 	public int InputValue
 	{
 		get {
 			int temp = _inputValue;
-			_inputValue = -1;
+			_inputValue = 0;
 			return temp; }
 	}
 
 	public bool HasInput()
 	{
-		return _inputValue == 1 || _inputValue == 0;
+		return _inputValue == 1 || _inputValue == -1;
 	}
 
 
@@ -23,7 +23,7 @@ public class InputManager : MonoBehaviour {
 		int x = Mathf.RoundToInt(Input.GetAxisRaw("Horizontal"));
 		if (x < 0 || Input.GetMouseButtonUp(0))
 		{
-			_inputValue = 0;
+			_inputValue = -1;
 		}
 		else if (x > 0 || Input.GetMouseButtonUp(1))
 		{
@@ -31,7 +31,7 @@ public class InputManager : MonoBehaviour {
 		}
 		else
 		{
-			_inputValue = -1;
+			_inputValue = 0;
 		}
 	}
 

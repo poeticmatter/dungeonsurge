@@ -5,10 +5,15 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
+	[HideInInspector]
 	public CardManager cardManager;
+	[HideInInspector]
 	public BoardManager boardManager;
+	[HideInInspector]
 	public UIManager uiManager;
+	[HideInInspector]
 	public InputManager inputManager;
+	public int level;
 
 	[HideInInspector] public bool playerTurn = true;
 	private bool enemyTurn;
@@ -44,7 +49,9 @@ public class GameManager : MonoBehaviour
 	private void InitGame()
 	{
 		boardManager.GenerateBoard(10);
-    }
+		boardManager.SpawnPlayer();
+		boardManager.SpawnEnemy(level);
+	}
 
 	private void InitDeck()
 	{
@@ -58,19 +65,25 @@ public class GameManager : MonoBehaviour
 		{
 			return;
 		}
-		Debug.Log("update1");
 		StartCoroutine(EnemyTurn());
-		Debug.Log("update2");
 	}
+
+	private Enemy currentEnemy = null;
 
 	IEnumerator EnemyTurn()
 	{
 		enemyTurn = true;
-		Debug.Log("Enemy Turn Start");
-		yield return new WaitForSeconds(1f);
-		//Do enemy stuff
-		Debug.Log("Enemy Turn Over");
-
+		uiManager.DisplayMessage("Enemy Turn");
+		for (int i = 0; i < boardManager.enemies.Count; i++)
+		{
+			currentEnemy = boardManager.enemies[i];
+			currentEnemy.ChooseAction();
+			while (currentEnemy!=null && currentEnemy.moving)
+			{
+				yield return null;
+			}
+			currentEnemy = null;
+		}
 		enemyTurn = false;
 		playerTurn = true;
 	}

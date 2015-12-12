@@ -54,7 +54,7 @@ public class Card : MonoBehaviour {
 
 	protected virtual void ExecuteStage(int stage)
 	{
-		Debug.Log("execute stage " + stage);
+		FindObjectOfType<Player>().CheckMove(2*inputs[0]);
 	}
 
 	

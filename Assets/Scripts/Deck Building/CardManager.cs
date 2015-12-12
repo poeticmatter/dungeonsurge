@@ -25,6 +25,7 @@ public class CardManager : MonoBehaviour
 			Card instance = Instantiate(cards[i]);
 			AddCardToTopOfDeck(instance);
 		}
+		Shuffle(deck);
 	}
 
 	public Card Play(int cardIndex)
