@@ -11,12 +11,6 @@ public class UIManager : MonoBehaviour
 
 	private CardManager cardManager = null;
 
-	void Awake()
-	{
-		Debug.Log(FindObjectsOfType<Image>());
-
-	}
-
 	public void updateHand()
 	{
 		if (cardManager == null)
