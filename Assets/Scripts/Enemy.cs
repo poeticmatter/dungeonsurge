@@ -4,17 +4,40 @@ using System.Collections;
 public class Enemy : MovingObject {
 
 	public int startPosition = 8;
+	public EnemyAction[] actions;
+	public int[] actionWeights;
+
+	override protected void Awake()
+	{
+		base.Awake();
+		actionWeights = new int[actions.Length];
+		for (int i = 0; i < actionWeights.Length; i++)
+		{
+			actionWeights[i] = 1;
+		}
+	}
 
 	public virtual void ChooseAction()
 	{
-		if (Mathf.Abs(target.boardPosition - boardPosition) == 1)
+		int weightTotal = CalculateWeightTotal();
+		int randomAction = Random.Range(0, weightTotal);
+		int weightCounted = 0;
+		int actionIndex = 0;
+		while (weightTotal > weightCounted + actionWeights[actionIndex])
 		{
-			CheckMove(-facing);
+			weightCounted += actionWeights[actionIndex++];
 		}
-		else
+		actions[actionIndex].ExecuteAction(this, (Player)target);
+	}
+
+	private int CalculateWeightTotal()
+	{
+		int weightTotal = 0;
+		for (int i = 0; i < actionWeights.Length; i++)
 		{
-			CheckMove(facing);
+			weightTotal += actionWeights[i];
 		}
+		return weightTotal;
 	}
 
 	protected override void Start()
