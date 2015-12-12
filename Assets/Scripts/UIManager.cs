@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
 	public Text[] xp;
 	public Text[] descriptions;
 	public Image[] arrows;
+	public Image[] background;
 
 	private CardManager cardManager = null;
 
@@ -36,7 +37,7 @@ public class UIManager : MonoBehaviour
 				SetText(titles[i], handCards[i].title);
 				SetText(xp[i], "XP: " + handCards[i].xp);
 				SetText(descriptions[i], handCards[i].description);
-
+				background[i].color = handCards[i].cardColor;
 			}
 
 		}

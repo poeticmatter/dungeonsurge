@@ -7,6 +7,7 @@ public class Card : MonoBehaviour {
 	public string description;
 	public int xp;
 	public int stages;
+	public Color cardColor;
 
 	[HideInInspector] public bool playing = false;
 
