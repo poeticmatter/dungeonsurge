@@ -4,6 +4,8 @@ using System.Collections;
 public class Invulnerable : Enemy {
 
 	public string invulnerableMessage;
+	public string cantGetOverMessage;
+	public string getToTheEdge;
 
 	private void CheckReachedEnd()
 	{
@@ -11,6 +13,15 @@ public class Invulnerable : Enemy {
 		{
 			GameManager.instance.NextLevel();
 		}
+		if (boardPosition >= GameManager.instance.boardManager.Length() - 1)
+		{
+			GameManager.instance.uiManager.DisplayMessage(cantGetOverMessage);
+		}
+		if (target.boardPosition > boardPosition)
+		{
+			GameManager.instance.uiManager.DisplayMessage(getToTheEdge);
+		}
+		
 	}
 
 	public override void ChooseAction()
@@ -21,7 +32,6 @@ public class Invulnerable : Enemy {
 
 	public override void TakeDamage(int damage)
 	{
-		Debug.Log(damage);
 		GameManager.instance.uiManager.DisplayMessage(invulnerableMessage);
 	}
 }

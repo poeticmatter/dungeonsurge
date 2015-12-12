@@ -9,13 +9,13 @@ public class AttackAndDodge : Card {
 		base.ExecuteStage(player, stage);
 		if (stage == 0)
 		{
-			if ( Mathf.Abs(player.boardPosition - player.target.boardPosition) <= range) {
-				player.target.TakeDamage(damage);
-			}
+			player.CheckMove(1 * inputs[0]);
 		}
 		else
 		{
-			player.CheckMove(1 * inputs[0]);
+			if ( Mathf.Abs(player.boardPosition - player.target.boardPosition) <= range) {
+				player.target.TakeDamage(damage);
+			}
 		}
 
 	}

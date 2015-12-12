@@ -20,12 +20,12 @@ public class InputManager : MonoBehaviour {
 
 
 	void Update () {
-		int x = Mathf.RoundToInt(Input.GetAxisRaw("Horizontal"));
-		if (x < 0 || Input.GetMouseButtonUp(0))
+		
+		if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetMouseButtonUp(0))
 		{
 			_inputValue = -1;
 		}
-		else if (x > 0 || Input.GetMouseButtonUp(1))
+		else if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow) || Input.GetMouseButtonUp(1))
 		{
 			_inputValue = 1;
 		}

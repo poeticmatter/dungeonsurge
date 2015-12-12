@@ -102,6 +102,12 @@ public class GameManager : MonoBehaviour
 		Invoke("Restart", restartLevelDelay);
 	}
 
+	public void GameOver()
+	{
+		enabled = false;
+		Debug.Log("Game Over");
+	}
+
 	private void Restart()
 	{
 		Application.LoadLevel(Application.loadedLevel);

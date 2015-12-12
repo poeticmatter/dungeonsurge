@@ -6,8 +6,9 @@ public class AdvanceOrRetreat : EnemyAction {
 	public override void ExecuteAction(Enemy enemy, Player player)
 	{
 		base.ExecuteAction(enemy, player);
-		if (Mathf.Abs(player.boardPosition - enemy.boardPosition) == 1)
+		if (player.boardPosition == enemy.boardPosition-1)
 		{
+			player.TakeDamage(1);
 			enemy.CheckMove(-enemy.facing);
 		}
 		else

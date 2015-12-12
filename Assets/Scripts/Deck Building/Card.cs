@@ -23,12 +23,9 @@ public class Card : MonoBehaviour {
 
 	IEnumerator PlayInternal()
 	{
-		yield return new WaitForSeconds(0.1f);
-
 		for (int i = 0; i < inputs.Length; i++)
 		{
 			GameManager.instance.uiManager.DisplayInput(inputMessages[i]);
-			yield return new WaitForSeconds(0.1f); //Display message for a bit before getting input
 			while (!GameManager.instance.inputManager.HasInput())
 			{
 				yield return null;

@@ -51,7 +51,7 @@ public class Enemy : MovingObject {
 	{
 		base.TakeDamage(damage);
 		hp -= damage;
-		if (hp<=0)
+		if (hp <= 0)
 		{
 			GameManager.instance.NextLevel();
 		}
