@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
 		FindComponents();
 		InitDeck();
 		InitGame();
+		Invoke("HideSplash", restartLevelDelay);
 	}
 
 
@@ -50,6 +51,15 @@ public class GameManager : MonoBehaviour
 		FindComponents();
 		InitGame();
 		LoadPlayerStats();
+		if (level >= 1)
+		{
+			uiManager.ShowSplash("Level " + level);
+		}
+		else
+		{
+			uiManager.ShowSplash("Tutorial Level");
+		}
+		Invoke("HideSplash", restartLevelDelay);
 	}
 
 	private void FindComponents()
@@ -109,6 +119,12 @@ public class GameManager : MonoBehaviour
 		Invoke("Restart", restartLevelDelay);
 	}
 
+	public void RestartGame()
+	{
+		level = -1;
+		Invoke("Restart", restartLevelDelay);
+	}
+
 	private void SavePlayerStats()
 	{
 		if (level == 0)
@@ -144,6 +160,10 @@ public class GameManager : MonoBehaviour
 	private void Restart()
 	{
 		Application.LoadLevel(Application.loadedLevel);
+	}
+	private void HideSplash()
+	{
+		uiManager.HideSplash();
 	}
 
 }

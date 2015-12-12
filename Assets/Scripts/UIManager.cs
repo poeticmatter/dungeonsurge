@@ -16,6 +16,8 @@ public class UIManager : MonoBehaviour
 	public Text[] descriptions;
 	public Image[] arrows;
 	public Image[] background;
+	public Image splash;
+	public Text splashText;
 
 	private CardManager cardManager = null;
 
@@ -102,5 +104,19 @@ public class UIManager : MonoBehaviour
 		floatingTextIndex = (floatingTextIndex+1)%floatingText.Length;
 		
     }
+
+	public void ShowSplash(string text)
+	{
+		splashText.text = text;
+		splashText.enabled = true;
+		splash.enabled = true;
+
+	}
+
+	public void HideSplash()
+	{
+		splashText.enabled = false;
+		splash.enabled = false;
+	}
 
 }
