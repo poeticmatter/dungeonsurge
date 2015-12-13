@@ -54,7 +54,6 @@ public class Enemy : MovingObject {
 
 	public override void TakeDamage(int damage)
 	{
-		Debug.Log("take damage");
 		base.TakeDamage(damage);
 		
 		hp -= damage;

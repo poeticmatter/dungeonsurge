@@ -102,6 +102,7 @@ public class GameManager : MonoBehaviour
 	{
 		enemyTurn = true;
 		uiManager.DisplayInput("Enemy Turn");
+		yield return new WaitForSeconds(0.5f);
 		for (int i = 0; i < boardManager.enemies.Count; i++)
 		{
 			currentEnemy = boardManager.enemies[i];

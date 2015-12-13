@@ -37,7 +37,6 @@ public class Player : MovingObject
 
 	IEnumerator PlayCard()
 	{
-		Debug.Log("play");
 		GameManager.instance.uiManager.DisplayInput("Pick a card to play");
 
 		while (!GameManager.instance.inputManager.HasInput())

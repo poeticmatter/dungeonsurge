@@ -87,7 +87,7 @@ public class UIManager : MonoBehaviour
 
 	public void FloatText(string text, Vector3 worldPosition)
 	{
-		Vector2 screenPosition = Camera.current.WorldToScreenPoint( worldPosition);
+		Vector2 screenPosition = Camera.main.WorldToScreenPoint( worldPosition);
 		floatingText[floatingTextIndex].GetComponent<RectTransform>().position = screenPosition;
 		floatingText[floatingTextIndex].text = text;
 		floatingText[floatingTextIndex].GetComponent<FloatingText>().enabled = true;

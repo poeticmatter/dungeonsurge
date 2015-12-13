@@ -6,7 +6,7 @@ public class BoardManager : MonoBehaviour {
 
 	public GameObject [] boardSprites;
 
-	private MovingObject[] board;
+	public MovingObject[] board;
 	public List<Enemy> enemies;
 
 	public Player playerPrefab;
