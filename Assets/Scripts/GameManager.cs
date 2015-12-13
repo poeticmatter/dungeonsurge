@@ -146,6 +146,9 @@ public class GameManager : MonoBehaviour
 
 	public void RestartLevel()
 	{
+		playerHP = 1;
+		playerShield = 1;
+		level--;
 		Invoke("Restart", restartLevelDelay);
 	}
 
