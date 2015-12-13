@@ -113,6 +113,12 @@ public class GameManager : MonoBehaviour
 		playerTurn = true;
 	}
 
+	public void LevelWon()
+	{
+		Player player = FindObjectOfType<Player>();
+		player.BuyCard();
+	}
+
 	public void NextLevel()
 	{
 		SavePlayerStats();
@@ -132,10 +138,8 @@ public class GameManager : MonoBehaviour
 			return;
 		}
 		Player player = FindObjectOfType<Player>();
-		playerXP = player.playerXP + level;
 		playerHP = player.playerHP;
 		playerShield = Mathf.Min(2, player.shield + 1);
-		playerLevel = player.playerLevel;
 	}
 
 	private void LoadPlayerStats()
@@ -145,10 +149,8 @@ public class GameManager : MonoBehaviour
 			return;
 		}
 		Player player = FindObjectOfType<Player>();
-		player.playerXP = playerXP;
 		player.playerHP = playerHP;
 		player.shield = playerShield;
-		player.playerLevel = playerLevel;
 	}
 
 	public void GameOver()

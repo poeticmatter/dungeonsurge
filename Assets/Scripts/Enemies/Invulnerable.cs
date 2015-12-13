@@ -11,7 +11,7 @@ public class Invulnerable : Enemy {
 	{
 		if (target.boardPosition >= GameManager.instance.boardManager.Length() - 1)
 		{
-			GameManager.instance.NextLevel();
+			GameManager.instance.LevelWon();
 		}
 		if (boardPosition >= GameManager.instance.boardManager.Length() - 1)
 		{

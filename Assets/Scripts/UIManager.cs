@@ -7,12 +7,10 @@ public class UIManager : MonoBehaviour
 	public Text[] floatingText;
 	private int floatingTextIndex = 0;
 	public Text playerHP;
-	public Text playerXP;
 	public Text enemyName;
 	public Text message;
 	public Text inputMessage;
 	public Text[] titles;
-	public Text[] xp;
 	public Text[] descriptions;
 	public Image[] arrows;
 	public Image[] cardImage;
@@ -21,21 +19,17 @@ public class UIManager : MonoBehaviour
 	public Text deck;
 	public Text discard;
 
-	private CardManager cardManager = null;
-
 	public void updateHand(Card[] handCards)
 	{
 		for (int i = 0; i < handCards.Length; i++)
 		{
 			bool cardExists = i < handCards.Length;
 			titles[i].enabled = cardExists;
-			xp[i].enabled = cardExists;
 			descriptions[i].enabled = cardExists;
 
 			if (cardExists)
 			{
 				SetText(titles[i], handCards[i].title);
-				SetText(xp[i], "XP: " + handCards[i].xp);
 				SetText(descriptions[i], handCards[i].description);
 				cardImage[i].color = handCards[i].cardColor;
 			}

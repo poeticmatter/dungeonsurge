@@ -54,7 +54,7 @@ public class Enemy : MovingObject {
 		hp -= damage;
 		if (hp <= 0)
 		{
-			GameManager.instance.NextLevel();
+			GameManager.instance.LevelWon();
 		}
 	}
 }

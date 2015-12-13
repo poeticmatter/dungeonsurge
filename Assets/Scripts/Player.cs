@@ -8,8 +8,6 @@ public class Player : MovingObject
 	private bool inputCoroutineRunning = false;
 	public int playerHP = 3;
 	public int shield = 1;
-	public int playerXP = 0;
-	public int playerLevel = 1;
 	public string[] damageMessages;
 	public string shieldBlockedMessage;
 	public string shieldHelpedMessage;
@@ -34,18 +32,8 @@ public class Player : MovingObject
 		target = FindObjectOfType<Enemy>();
 		base.Start();
 		GameManager.instance.uiManager.SetHP(playerHP, shield);
-		AddXP(0);
 	}
 
-	private bool HasXPToLevel()
-	{
-		return playerXP >= XPToNextLevel();
-	}
-
-	private int XPToNextLevel()
-	{
-		return playerLevel * 10;
-    }
 
 	IEnumerator PlayCard()
 	{
@@ -65,20 +53,19 @@ public class Player : MovingObject
 		{
 			yield return null;
 		}
-		AddXP(played.xp);
-		if (HasXPToLevel())
-		{
-			StartCoroutine(BuyCard());
-		} else
-		{
-			GameManager.instance.cardManager.Draw();
-			GameManager.instance.playerTurn = false;
-			inputCoroutineRunning = false;
-		}
+		GameManager.instance.cardManager.Draw();
+		GameManager.instance.playerTurn = false;
+		inputCoroutineRunning = false;
 	}
 
-	IEnumerator BuyCard()
+	public void BuyCard()
 	{
+		StartCoroutine( BuyCardInternal());
+	}
+
+	IEnumerator BuyCardInternal()
+	{
+		inputCoroutineRunning = true;
 		Card[] cardChoices = new Card[2];
 		int firstIndex = Random.Range(0, cardsToBuy.Length);
         cardChoices[0] = cardsToBuy[firstIndex];
@@ -98,19 +85,9 @@ public class Player : MovingObject
 		}
 		GameManager.instance.uiManager.UndisplayCardtoBuy();
 		GameManager.instance.cardManager.AddCardToTopOfDeck(cardChoices[input]);
-		AddXP(-XPToNextLevel());
-		playerLevel++;
-		GameManager.instance.cardManager.Draw();
-		GameManager.instance.playerTurn = false;
-		inputCoroutineRunning = false;
+		GameManager.instance.NextLevel();
+		
 	}
-
-	private void AddXP(int xpGain)
-	{
-		playerXP += xpGain;
-		GameManager.instance.uiManager.playerXP.text = "XP: " + playerXP + " out of " + XPToNextLevel();
-	}
-
 
 
 	public override void TakeDamage(int damage)
