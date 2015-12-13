@@ -19,9 +19,7 @@ public class CardManager : MonoBehaviour
 		deck = new List<Card>();
 		for (int i = 0; i < cards.Length; i++)
 		{
-			Card instance = Instantiate(cards[i]);
-			DontDestroyOnLoad(instance);
-			AddCardToTopOfDeck(instance);
+			AddCardToTopOfDeck(cards[i]);
 		}
 		Shuffle(deck);
 		UpdateUI();
@@ -40,7 +38,9 @@ public class CardManager : MonoBehaviour
 
 	public void AddCardToTopOfDeck(Card card)
 	{
-		deck.Add(card);
+		Card instance = Instantiate(card);
+		DontDestroyOnLoad(instance);
+		deck.Add(instance);
 		UpdateUI();
 	}
 
@@ -62,7 +62,7 @@ public class CardManager : MonoBehaviour
 				break;
 			}
 		}
-		GameManager.instance.uiManager.updateHand();
+		GameManager.instance.uiManager.updateHand(GetHandCards());
 		GameManager.instance.uiManager.SelectedCard(-1);
 		UpdateUI();
 	}
@@ -71,6 +71,8 @@ public class CardManager : MonoBehaviour
 	{
 		deck.AddRange(hand);
 		deck.AddRange(discard);
+		hand.Clear();
+		discard.Clear();
 		Shuffle(deck);
 	}
 	
