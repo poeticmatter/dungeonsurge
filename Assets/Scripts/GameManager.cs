@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 
 	[HideInInspector] public bool playerTurn = true;
 	private bool enemyTurn;
+	[HideInInspector]
+	public bool levelWon = false;
 
 	public static GameManager instance = null;
 	public Card[] startingDeck;
@@ -72,6 +74,7 @@ public class GameManager : MonoBehaviour
 
 	private void InitGame()
 	{
+		levelWon = false;
 		boardManager.GenerateBoard(10);
 		boardManager.SpawnPlayer();
 		boardManager.SpawnEnemy(level);
@@ -86,7 +89,7 @@ public class GameManager : MonoBehaviour
 
 	void Update()
 	{
-		if (playerTurn || enemyTurn)
+		if (playerTurn || enemyTurn || levelWon)
 		{
 			return;
 		}
@@ -110,11 +113,15 @@ public class GameManager : MonoBehaviour
 			currentEnemy = null;
 		}
 		enemyTurn = false;
-		playerTurn = true;
+		if (!levelWon)
+		{
+			playerTurn = true;
+		}
 	}
 
 	public void LevelWon()
 	{
+		levelWon = true;
 		Player player = FindObjectOfType<Player>();
 		player.BuyCard();
 	}

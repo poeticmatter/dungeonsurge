@@ -21,6 +21,10 @@ public class Enemy : MovingObject {
 
 	public virtual void ChooseAction()
 	{
+		if (hp <=0)
+		{
+			return;
+		}
 		int weightTotal = CalculateWeightTotal();
 		int randomActionWeight = Random.Range(0, weightTotal);
 		int weightCounted = 0;
@@ -50,11 +54,25 @@ public class Enemy : MovingObject {
 
 	public override void TakeDamage(int damage)
 	{
+		Debug.Log("take damage");
 		base.TakeDamage(damage);
+		
 		hp -= damage;
 		if (hp <= 0)
 		{
 			GameManager.instance.LevelWon();
 		}
+	}
+
+	public void MovePlayer(float delay, int move)
+	{
+		StartCoroutine(MovePlayerInternal(delay, move));
+	}
+
+	IEnumerator MovePlayerInternal(float delay, int move)
+	{
+		yield return new WaitForSeconds(delay);
+		target.CheckMove(move);
+
 	}
 }

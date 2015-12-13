@@ -18,7 +18,7 @@ public class Player : MovingObject
 
 	void Update()
 	{
-		if (!GameManager.instance.playerTurn || inputCoroutineRunning)
+		if (GameManager.instance.levelWon || !GameManager.instance.playerTurn || inputCoroutineRunning)
 		{
 			return;
 		}
@@ -37,6 +37,7 @@ public class Player : MovingObject
 
 	IEnumerator PlayCard()
 	{
+		Debug.Log("play");
 		GameManager.instance.uiManager.DisplayInput("Pick a card to play");
 
 		while (!GameManager.instance.inputManager.HasInput())
@@ -53,7 +54,10 @@ public class Player : MovingObject
 		{
 			yield return null;
 		}
-		GameManager.instance.cardManager.Draw();
+		if (!GameManager.instance.levelWon)
+		{
+			GameManager.instance.cardManager.Draw();
+		}
 		GameManager.instance.playerTurn = false;
 		inputCoroutineRunning = false;
 	}
@@ -83,7 +87,6 @@ public class Player : MovingObject
 		{
 			input = 0;
 		}
-		GameManager.instance.uiManager.UndisplayCardtoBuy();
 		GameManager.instance.cardManager.AddCardToTopOfDeck(cardChoices[input]);
 		GameManager.instance.NextLevel();
 		

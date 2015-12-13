@@ -125,14 +125,4 @@ public class UIManager : MonoBehaviour
 
 	}
 
-	public void UndisplayCardtoBuy()
-	{
-		for (int i = 0; i < cardImage.Length; i++)
-		{
-			Vector3 pos = cardImage[i].rectTransform.position;
-			pos.y = cardImageYPos;
-			cardImage[i].rectTransform.position = pos;
-		}
-	}
-
 }

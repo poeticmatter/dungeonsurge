@@ -10,7 +10,8 @@ public class BoardManager : MonoBehaviour {
 	public List<Enemy> enemies;
 
 	public Player playerPrefab;
-	public Enemy enemyPrefab;
+	public Enemy tutorialEnemy;
+	public Enemy[] firstStageEnemies;
 	
 
 	public int Length()
@@ -72,7 +73,20 @@ public class BoardManager : MonoBehaviour {
 
 	public void SpawnEnemy(int level)
 	{
-		Enemy enemy = Instantiate(enemyPrefab);
+		Enemy enemyToSpawn = null;
+		if (level == 0)
+		{
+			enemyToSpawn = tutorialEnemy;
+		}
+		else if (1 <= level && level <= 4)
+		{
+			enemyToSpawn = firstStageEnemies[Random.Range(0, firstStageEnemies.Length)];
+		}
+		else
+		{
+			enemyToSpawn = firstStageEnemies[Random.Range(0, firstStageEnemies.Length)];
+		}
+		Enemy enemy = Instantiate(enemyToSpawn);
 		RegisterOnBoard(enemy, enemy.startPosition);
 		enemies.Add(enemy);
 	}
