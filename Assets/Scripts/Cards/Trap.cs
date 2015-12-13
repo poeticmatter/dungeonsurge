@@ -15,7 +15,7 @@ public class Trap : MonoBehaviour
 		for (int i = 0; i < GameManager.instance.boardManager.enemies.Count; i++)
 		{
 			Enemy enemy = GameManager.instance.boardManager.enemies[i];
-            if (enemy.boardPosition == boardPosition)
+            if (enemy.transform.position.x - transform.position.x < float.Epsilon)
 			{
 				enemy.TakeDamage(2);
 				enabled = false;
