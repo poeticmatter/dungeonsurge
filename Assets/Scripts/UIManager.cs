@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
 	public Text[] xp;
 	public Text[] descriptions;
 	public Image[] arrows;
-	public Image[] background;
+	public Image[] cardImage;
 	public Image splash;
 	public Text splashText;
 	public Text deck;
@@ -23,15 +23,9 @@ public class UIManager : MonoBehaviour
 
 	private CardManager cardManager = null;
 
-	public void updateHand()
+	public void updateHand(Card[] handCards)
 	{
-		if (cardManager == null)
-		{
-			cardManager = GameManager.instance.cardManager;
-		}
-
-		Card[] handCards = cardManager.GetHandCards();
-		for (int i = 0; i < titles.Length; i++)
+		for (int i = 0; i < handCards.Length; i++)
 		{
 			bool cardExists = i < handCards.Length;
 			titles[i].enabled = cardExists;
@@ -43,7 +37,7 @@ public class UIManager : MonoBehaviour
 				SetText(titles[i], handCards[i].title);
 				SetText(xp[i], "XP: " + handCards[i].xp);
 				SetText(descriptions[i], handCards[i].description);
-				background[i].color = handCards[i].cardColor;
+				cardImage[i].color = handCards[i].cardColor;
 			}
 
 		}
@@ -119,6 +113,32 @@ public class UIManager : MonoBehaviour
 	{
 		splashText.enabled = false;
 		splash.enabled = false;
+	}
+
+	private float cardImageYPos = 0;
+
+	public void DisplayCardToBuy()
+	{
+		for (int i = 0; i < cardImage.Length; i++)
+		{
+			Vector3 pos = cardImage[i].rectTransform.position;
+			cardImageYPos = pos.y;
+			pos.y = cardImageYPos + 350;
+			cardImage[i].rectTransform.position = pos;
+			DisplayMessage("Pick a card to add to the top of your deck");
+		}
+		SelectedCard(-1);
+
+	}
+
+	public void UndisplayCardtoBuy()
+	{
+		for (int i = 0; i < cardImage.Length; i++)
+		{
+			Vector3 pos = cardImage[i].rectTransform.position;
+			pos.y = cardImageYPos;
+			cardImage[i].rectTransform.position = pos;
+		}
 	}
 
 }
