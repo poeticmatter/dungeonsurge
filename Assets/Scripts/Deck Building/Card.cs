@@ -37,7 +37,7 @@ public class Card : MonoBehaviour {
         for (int i = 0; i < stages; i++)
 		{
 			ExecuteStage(player, i);
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(0.3f);
 		}
 
 		playing = false;
