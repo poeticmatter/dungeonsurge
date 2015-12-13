@@ -12,6 +12,7 @@ public class Loader : MonoBehaviour
 		{
 			Instantiate(gameManager);
 		}
+		Cursor.visible = false;
 			
 	}
 
