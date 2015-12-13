@@ -24,6 +24,7 @@ public class CardManager : MonoBehaviour
 			AddCardToTopOfDeck(instance);
 		}
 		Shuffle(deck);
+		UpdateUI();
 	}
 
 	public Card Play(int cardIndex)
@@ -33,12 +34,14 @@ public class CardManager : MonoBehaviour
 		hand.Clear();
 		temp.Play();
 		GameManager.instance.uiManager.SelectedCard(cardIndex);
+		UpdateUI();
 		return temp;
 	}
 
 	public void AddCardToTopOfDeck(Card card)
 	{
 		deck.Add(card);
+		UpdateUI();
 	}
 
 	public void Draw()
@@ -61,6 +64,7 @@ public class CardManager : MonoBehaviour
 		}
 		GameManager.instance.uiManager.updateHand();
 		GameManager.instance.uiManager.SelectedCard(-1);
+		UpdateUI();
 	}
 
 	public void ShuffleHandAndDiscardIntoDeck()
@@ -93,5 +97,10 @@ public class CardManager : MonoBehaviour
 		}
 	}
 
+	private void UpdateUI()
+	{
+		GameManager.instance.uiManager.deck.text = "Deck: " + deck.Count;
+		GameManager.instance.uiManager.discard.text = "Discard: " + discard.Count;
+	}
 
 }

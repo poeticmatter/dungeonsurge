@@ -31,6 +31,7 @@ public class Player : MovingObject
 		target = FindObjectOfType<Enemy>();
 		base.Start();
 		GameManager.instance.uiManager.SetHP(playerHP, shield);
+		GainXP(0);
 	}
 
 	IEnumerator WaitForInput()
@@ -51,6 +52,7 @@ public class Player : MovingObject
 		{
 			yield return null;
 		}
+		GainXP(played.xp);
 		GameManager.instance.cardManager.Draw();
 		GameManager.instance.playerTurn = false;
 		cardPlaying = false;
@@ -59,6 +61,7 @@ public class Player : MovingObject
 	private void GainXP(int xpGain)
 	{
 		playerXP += xpGain;
+		GameManager.instance.uiManager.playerXP.text = "XP: " + playerXP;
 	}
 
 

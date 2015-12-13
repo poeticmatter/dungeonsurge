@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
 	public Image[] background;
 	public Image splash;
 	public Text splashText;
+	public Text deck;
+	public Text discard;
 
 	private CardManager cardManager = null;
 

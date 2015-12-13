@@ -132,7 +132,7 @@ public class GameManager : MonoBehaviour
 			return;
 		}
 		Player player = FindObjectOfType<Player>();
-		playerXP = player.playerXP;
+		playerXP = player.playerXP + level;
 		playerHP = player.playerHP;
 		playerShield = player.shield + 1;
 		playerLevel = player.playerLevel;
