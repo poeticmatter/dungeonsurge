@@ -8,7 +8,7 @@ public class PlaceTrap : Card {
 	{
 		base.ExecuteStage(player, stage);
 		int distanceToEnemy = Mathf.Abs(player.boardPosition - player.target.boardPosition);
-		if (distanceToEnemy <= 2)
+		if (distanceToEnemy <= 1)
 		{
 			GameManager.instance.uiManager.DisplayMessage("Can't place trap, enemy too close");
 		}

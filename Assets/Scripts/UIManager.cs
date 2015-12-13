@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
 	public Text splashText;
 	public Text deck;
 	public Text discard;
+	public Text[] splashOthers;
 
 	public void updateHand(Card[] handCards)
 	{
@@ -100,13 +101,20 @@ public class UIManager : MonoBehaviour
 		splashText.text = text;
 		splashText.enabled = true;
 		splash.enabled = true;
-
+		for (int i = 0; i < splashOthers.Length; i++)
+		{
+			splashOthers[i].enabled = true;
+		}
 	}
 
 	public void HideSplash()
 	{
 		splashText.enabled = false;
 		splash.enabled = false;
+		for (int i = 0; i < splashOthers.Length; i++)
+		{
+			splashOthers[i].enabled = false;
+		}
 	}
 
 	private float cardImageYPos = 0;
