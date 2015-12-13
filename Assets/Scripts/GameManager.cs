@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
 		Player player = FindObjectOfType<Player>();
 		playerXP = player.playerXP + level;
 		playerHP = player.playerHP;
-		playerShield = player.shield + 1;
+		playerShield = Mathf.Min(2, player.shield + 1);
 		playerLevel = player.playerLevel;
 	}
 
