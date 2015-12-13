@@ -19,7 +19,10 @@ public class Invulnerable : Enemy {
 		}
 		if (target.boardPosition > boardPosition)
 		{
-			GameManager.instance.uiManager.DisplayMessage(getToTheEdge);
+			if (!GameManager.instance.levelWon)
+			{
+				GameManager.instance.uiManager.DisplayMessage(getToTheEdge);
+			}
 		}
 		
 	}
