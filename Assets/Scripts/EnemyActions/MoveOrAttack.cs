@@ -3,21 +3,28 @@ using System.Collections;
 
 public class MoveOrAttack : EnemyAction {
 	public int damage;
-	public int maxMove;
-	public int minMove;
+	public int maxAdvance;
+	public int minAdvance;
+	public int maxRetreat;
+	public int minRetreat;
 	public int minRange;
 	public int maxRange;
 	public override void ExecuteAction(Enemy enemy, Player player)
 	{
 		base.ExecuteAction(enemy, player);
 		int distanceToPlayer = Mathf.Abs(player.boardPosition - enemy.boardPosition);
-		if (distanceToPlayer >=minRange && distanceToPlayer <= maxRange)
+		Debug.Log(distanceToPlayer);
+		if (distanceToPlayer > maxRange)
 		{
-			player.TakeDamage(1);
+			enemy.CheckMove(enemy.facing * Random.Range(minAdvance, maxAdvance + 1));
+		}
+		else if (distanceToPlayer < minRange)
+		{
+			enemy.CheckMove(enemy.facing * -1 * Random.Range(minRetreat, maxRetreat + 1));
 		}
 		else
 		{
-			enemy.CheckMove(enemy.facing*Random.Range(minMove,maxMove+1));
+			player.TakeDamage(1);
 		}
 	}
 }
