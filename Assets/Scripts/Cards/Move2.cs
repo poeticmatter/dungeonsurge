@@ -24,6 +24,11 @@ public class Move2 : Card {
 			{
 				player.CheckMove(2 * -player.facing);
 			}
+			else if (player.boardPosition + 2 * player.facing >= GameManager.instance.boardManager.board.Length ||
+				player.boardPosition + 2 * player.facing < 0)
+			{
+				player.CheckMove(2 * -player.facing);
+			}
 			else
 			{
 				player.CheckMove(2 * player.facing);
