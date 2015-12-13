@@ -6,7 +6,8 @@ public class Enemy : MovingObject {
 	public int startPosition = 8;
 	public EnemyAction[] actions;
 	public int[] actionWeights;
-	public int hp;
+	public int hp = 3;
+	public string enemyName;
 
 	override protected void Awake()
 	{
@@ -16,6 +17,7 @@ public class Enemy : MovingObject {
 		{
 			actionWeights[i] = 1;
 		}
+		GameManager.instance.uiManager.enemyName.text = enemyName;
 
 	}
 

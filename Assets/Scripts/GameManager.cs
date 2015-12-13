@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
 	[HideInInspector]
 	public bool levelWon = false;
 
+	public bool gameOver = false;
+
 	public static GameManager instance = null;
 	public Card[] startingDeck;
 
@@ -49,6 +51,7 @@ public class GameManager : MonoBehaviour
 
 	void OnLevelWasLoaded(int index)
 	{
+		gameOver = false;
 		level++;
 		FindComponents();
 		InitGame();
@@ -135,7 +138,14 @@ public class GameManager : MonoBehaviour
 
 	public void RestartGame()
 	{
+		cardManager.ClearDeck();
+		cardManager.InitDeck(startingDeck);
 		level = -1;
+		Invoke("Restart", restartLevelDelay);
+	}
+
+	public void RestartLevel()
+	{
 		Invoke("Restart", restartLevelDelay);
 	}
 
@@ -163,8 +173,8 @@ public class GameManager : MonoBehaviour
 
 	public void GameOver()
 	{
+		gameOver = true;
 		enabled = false;
-		Debug.Log("Game Over");
 	}
 
 	private void Restart()

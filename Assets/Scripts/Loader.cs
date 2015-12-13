@@ -17,9 +17,15 @@ public class Loader : MonoBehaviour
 
 	void Update()
 	{
-		if (!secondInput && Input.GetKeyUp(KeyCode.Escape))
+		if (!secondInput && (Input.GetKeyUp(KeyCode.Escape) || GameManager.instance.gameOver))
 		{
-			GameManager.instance.uiManager.ShowSplash("Press Escape to quit\nEnter to Continue\nR to Restart\nM to mute");
+			if (GameManager.instance.gameOver)
+			{
+				GameManager.instance.uiManager.ShowSplash("Game Over, you survived to level " + GameManager.instance.level + "\nPress Escape to quit\nEnter to restart\nR to retry level");
+			} else
+			{
+				GameManager.instance.uiManager.ShowSplash("Press Escape to quit\nEnter to Continue\nR to Restart");
+			}
 			StartCoroutine(WaitForInput());
 		}
 	}
@@ -46,14 +52,30 @@ public class Loader : MonoBehaviour
 		secondInput = false;
 		if (r)
 		{
+			if (GameManager.instance.gameOver)
+			{
+				GameManager.instance.RestartLevel();
+			}
+			else
+			{
+				GameManager.instance.RestartGame();
+			}
 			GameManager.instance.enabled = true;
-            GameManager.instance.RestartGame();
+			GameManager.instance.gameOver = false;
 
 		}
 		else if (enter)
 		{
+			if (GameManager.instance.gameOver)
+			{
+				GameManager.instance.RestartGame();
+			}
+			else
+			{
+				GameManager.instance.uiManager.HideSplash();
+			}
 			GameManager.instance.enabled = true;
-			GameManager.instance.uiManager.HideSplash();
+			GameManager.instance.gameOver = false;
 		}
 		else if (escape)
 		{

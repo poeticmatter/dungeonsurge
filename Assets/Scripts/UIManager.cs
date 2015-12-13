@@ -119,7 +119,7 @@ public class UIManager : MonoBehaviour
 			cardImageYPos = pos.y;
 			pos.y = cardImageYPos + 350;
 			cardImage[i].rectTransform.position = pos;
-			DisplayMessage("Pick a card to add to the top of your deck");
+			DisplayMessage("Pick a card to add to your deck");
 		}
 		SelectedCard(-1);
 

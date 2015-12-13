@@ -105,4 +105,13 @@ public class CardManager : MonoBehaviour
 		GameManager.instance.uiManager.discard.text = "Discard: " + discard.Count;
 	}
 
+	public void ClearDeck()
+	{
+		ShuffleHandAndDiscardIntoDeck();
+		for (int i = 0; i < deck.Count; i++)
+		{
+			Destroy(deck[i].gameObject);
+		}
+	}
+
 }

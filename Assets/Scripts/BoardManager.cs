@@ -12,7 +12,8 @@ public class BoardManager : MonoBehaviour {
 	public Player playerPrefab;
 	public Enemy tutorialEnemy;
 	public Enemy[] firstStageEnemies;
-	
+	public Enemy[] secondStageEnemies;
+
 
 	public int Length()
 	{
@@ -84,7 +85,7 @@ public class BoardManager : MonoBehaviour {
 		}
 		else
 		{
-			enemyToSpawn = firstStageEnemies[Random.Range(0, firstStageEnemies.Length)];
+			enemyToSpawn = secondStageEnemies[Random.Range(0, secondStageEnemies.Length)];
 		}
 		Enemy enemy = Instantiate(enemyToSpawn);
 		RegisterOnBoard(enemy, enemy.startPosition);
